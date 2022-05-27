@@ -1,0 +1,62 @@
+
+{
+  // Automatically created by phoityne-vscode extension.
+
+  "version": "2.0.0",
+  "presentation": {
+    "reveal": "always",
+    "panel": "new"
+  },
+  "tasks": [
+    {
+      // F7
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "label": "Cabal build",
+      "type": "shell",
+      "command": "cabal build"
+    },
+    {
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "label": "Cabal configure",
+      "type": "shell",
+      "command": "cabal configure"
+    },
+    {
+      // F6
+      "group": "build",
+      "type": "shell",
+      "label": "Cabal clean & build",
+      "command": "cabal clean && cabal build"
+    },
+    {
+      // F8
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "type": "shell",
+      "label": "Cabal test",
+      "command": "cabal new-test --test-show-details=streaming"
+    },
+    {
+      "group": {
+        "kind": "build",
+      },
+      "type": "shell",
+      "label": "Cabal clean",
+      "command": "cabal clean"
+    },
+    {
+      "group": "build",
+      "type": "shell",
+      "label": "Clean, build, and link",
+      "command": "cabal clean && cabal build && cabal install --install-method=copy --installdir=./dist-newstyle/out"
+    }
+  ]
+}
