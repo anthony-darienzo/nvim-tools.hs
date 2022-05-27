@@ -14,7 +14,7 @@ name:               nvim-update-appearance
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:            0.1.0.0
+version:            0.1.1.0
 
 -- A short (one-line) description of the package.
 synopsis:           Use RPC to tell neovim to call UpdateAppearance
@@ -51,7 +51,6 @@ library
     build-depends: network, msgpack, bytestring, Glob, base ^>=4.14.3.0
 
     exposed-modules: 
-        RPCTools
         NvimTools
 
 executable nvim-update-appearance
