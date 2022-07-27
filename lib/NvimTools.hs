@@ -25,7 +25,7 @@ pathToSocket file = do
 
 {- | Given the TMPDIR, output a List of neovim socket paths -}
 discoverNvims :: FilePath -> IO [ FilePath ]
-discoverNvims = globDir1 (compile "nvim*/*")
+discoverNvims = globDir1 (compile "nvim*/0")
 
 execLuaCmdName :: String
 execLuaCmdName = "nvim_execute_lua"
