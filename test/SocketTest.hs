@@ -18,6 +18,6 @@ main = do
   tmpdir  <- getEnv "TMPDIR"
   sockets <- (discoverNvims >=> traverse pathToSocket) tmpdir
 
-  sequence_ $ run updateAndClose 0 sockets
+  mapM_ updateAndClose sockets
 
   putStrLn "FINISHED NEOVIM SOCKET TEST"
