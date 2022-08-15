@@ -1,50 +1,53 @@
 module Main (main) where
 
 import NvimTools
-  ( discoverNvims
+  ( discoverSockets
   , pathToSocket
   , updateAndClose
   , moveToLine
   , conditionalMoveToLine )
 import System.Environment ( getEnv, getArgs )
-import System.IO ( hPutStrLn, stderr )
-import Control.Monad ( (>=>) )
+import Extras ( nicePutStrLn, niceErr )
+import Control.Monad ( (>=>), unless )
 {-
   f >=> g == \x -> (f x) >>= g
 -}
 import Text.Read ( readMaybe )
+import Data.Maybe (catMaybes, isNothing)
 
 {- | Find neovim instances, tell them all to call UpdateAppearance -}
 updateAppearance :: IO ()
 updateAppearance = do
     tmpdir  <- getEnv "TMPDIR"
-    sockets <- (discoverNvims >=> traverse pathToSocket) tmpdir
+    maybe_sockets <- (discoverSockets >=> traverse pathToSocket) tmpdir
+    let sockets = catMaybes maybe_sockets
     if null sockets
-        then hPutStrLn stderr "No neovim instances found!"
+        then nicePutStrLn "No neovim instances found!"
         else
             mapM_ updateAndClose sockets
-            >> putStrLn "Updated neovims!"
+            >> nicePutStrLn "Updated neovims!"
 
 {- | Move cursor to line. If asSocket is true, path is a unix socket path to a
  - neovim instance. Otherwise, path is the name of the filename to search for. -}
 moveCursor :: String -> FilePath -> Bool -> IO ()
 moveCursor line_arg path asSocket =
   case (readMaybe line_arg :: Maybe Integer) of
-    Nothing -> hPutStrLn stderr $
+    Nothing -> niceErr $
       "In moveCursor, failed to identify desired line number. Received: "
-      <> show line_arg
+        <> show line_arg
     Just n -> if asSocket
       then do
         socket <- pathToSocket path
-        moveToLine socket n
+        maybe ( nicePutStrLn "No update" ) (`moveToLine` n) socket -- if socket is not Nothing. There must be a better way
       else do
         tmpdir  <- getEnv "TMPDIR"
-        sockets <- (discoverNvims >=> traverse pathToSocket) tmpdir
+        maybe_sockets <- (discoverSockets >=> traverse pathToSocket) tmpdir
+        let sockets = catMaybes maybe_sockets
         if null sockets
-          then hPutStrLn stderr "No neovim instances found!"
+          then nicePutStrLn "No neovim instances found!"
           else
             mapM_ (\ s -> conditionalMoveToLine s n path) sockets
-            >> putStrLn "Updated neovims!"
+            >> nicePutStrLn "Updated neovims!"
 
 printHelpDialog :: IO ()
 printHelpDialog = putStr $ unlines
@@ -73,4 +76,4 @@ main = do
     ["moveCursor", line, "--socket", socket_path]   -> moveCursor line socket_path True
     ["moveCursor", line, "--file", filename]        -> moveCursor line filename False
 
-    _ -> hPutStrLn stderr $ "Invalid command \"" <> unwords args <> "\". Use flag --help for help."
+    _ -> niceErr $ "Invalid command \"" <> unwords args <> "\". Use flag --help for help."

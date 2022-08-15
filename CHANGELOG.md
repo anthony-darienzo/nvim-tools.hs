@@ -1,5 +1,8 @@
 # Revision history for nvim-tools (formerly nvim-update-appearance)
 
+## 0.2.1.1 -- 2022-08-14
+* Added support for vimr sockets.
+
 ## 0.2.1.0 -- 2022-07-27
 * Added help dialog
 * Added moveCursor support.

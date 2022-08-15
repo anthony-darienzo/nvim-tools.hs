@@ -14,7 +14,7 @@ name:               nvim-tools
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:            0.2.1.0
+version:            0.2.1.1
 
 -- A short (one-line) description of the package.
 synopsis:           Use RPC to tell neovim to call UpdateAppearance, etc. Formerly called nvim-update-appearance.
@@ -48,10 +48,10 @@ library
     hs-source-dirs: lib
     default-language: Haskell2010
 
-    build-depends: network, msgpack, bytestring, Glob, random, base ^>=4.14.3.0
+    build-depends: unix, network, msgpack, bytestring, Glob, random, base ^>=4.14.3.0
 
     exposed-modules: 
-        NvimTools
+        NvimTools, Extras
 
 executable nvim-tools
     -- .hs or .lhs file containing the Main module.
