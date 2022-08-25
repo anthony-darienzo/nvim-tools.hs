@@ -29,7 +29,8 @@ homepage:
 -- bug-reports:
 
 -- The license under which the package is released.
-license:            NONE
+license:           MIT
+license-file:   LICENSE
 
 -- The package author(s).
 author:             Anthony D'Arienzo
