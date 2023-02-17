@@ -1,5 +1,13 @@
 # Revision history for nvim-tools (formerly nvim-update-appearance)
 
+## 0.2.3.1 -- 2023-02-16
+* Now listens for neovim response and reports it.
+
+## 0.2.2.1 -- 2023-02-09
+* Added debug command.
+* Slightly changed help dialog
+* Switched to `msgpack-binary` library.
+
 ## 0.2.1.1 -- 2022-08-14
 * Added support for vimr sockets.
 

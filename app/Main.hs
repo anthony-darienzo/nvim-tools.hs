@@ -54,14 +54,14 @@ printHelpDialog = putStr $ unlines
   [ "nvim-update: neovim RPC update tools"
   , ""
   , "Using neovim's RPC API, this command does two things:"
-  , "    - \"nvim-update updateAppearance\" will instruct all neovim instances to"
+  , "    - \"nvim-tools updateAppearance\" will instruct all neovim instances to"
   , "        update their colorscheme."
-  , "    - \"nvim-update moveCursor <LINE> --socket <SOCKET_PATH>\" will tell the "
+  , "    - \"nvim-tools moveCursor <LINE> --socket <SOCKET_PATH>\" will tell the "
   , "        neovim instance at SOCKET_PATH to move the cursor to LINE."
-  , "    - \"nvim-update moveCursor <LINE> --file <FILENAME>\" will tell all neovim"
+  , "    - \"nvim-tools moveCursor <LINE> --file <FILENAME>\" will tell all neovim"
   , "        instances currently viewing FILENAME to move the cursor to LINE."
-  , "    - \"nvim-update --help\" displays this dialog."
-  , "    - \"nvim-update\" will also display this dialog."
+  , "    - \"nvim-tools --help\" displays this dialog."
+  , "    - \"nvim-tools \" will also display this dialog."
   ]
 
 main :: IO ()

@@ -14,7 +14,7 @@ name:               nvim-tools
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:            0.2.1.1
+version:            0.2.2.1
 
 -- A short (one-line) description of the package.
 synopsis:           Use RPC to tell neovim to call UpdateAppearance, etc. Formerly called nvim-update-appearance.
@@ -49,8 +49,14 @@ library
     hs-source-dirs: lib
     default-language: Haskell2010
 
-    build-depends: unix, network, msgpack, bytestring, Glob, random, base ^>=4.14.3.0
-
+    build-depends: base ^>=4.17
+        , network
+        , msgpack-binary
+        , vector, bytestring
+        , filepath
+        , Glob
+        , random
+        , unix
     exposed-modules: 
         NvimTools, Extras
 
@@ -65,7 +71,7 @@ executable nvim-tools
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    nvim-tools, base ^>=4.14.3.0
+    build-depends:    nvim-tools, base ^>=4.17
 
     -- Directories containing source files.
     hs-source-dirs:   app
@@ -80,7 +86,7 @@ test-suite search-test
     hs-source-dirs: test
     main-is: SearchTest.hs
 
-    build-depends: nvim-tools, base ^>=4.14.3.0
+    build-depends: nvim-tools, base ^>=4.17
 
 test-suite socket-test
     type: exitcode-stdio-1.0
@@ -89,4 +95,4 @@ test-suite socket-test
     hs-source-dirs: test
     main-is: SocketTest.hs
 
-    build-depends: network, nvim-tools, base ^>=4.14.3.0
+    build-depends: network, nvim-tools, bytestring, base ^>=4.17
