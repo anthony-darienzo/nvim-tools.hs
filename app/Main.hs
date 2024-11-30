@@ -18,7 +18,8 @@ import Data.Maybe (catMaybes, isNothing)
 {- | Find neovim instances, tell them all to call UpdateAppearance -}
 updateAppearance :: IO ()
 updateAppearance = do
-    tmpdir  <- getEnv "TMPDIR"
+    tmpdir  <- getEnv "XDG_RUNTIME_DIR"
+    nicePutStrLn tmpdir
     maybe_sockets <- (discoverSockets >=> traverse pathToSocket) tmpdir
     let sockets = catMaybes maybe_sockets
     if null sockets

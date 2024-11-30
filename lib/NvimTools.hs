@@ -57,7 +57,7 @@ pathToSocket file = do
       return (Just sock)
 
 discoverNvims :: FilePath -> IO [ FilePath ]
-discoverNvims = globDir1 (compile "nvim*/*/*0")
+discoverNvims = globDir1 (compile "nvim.*.0")
 
 discoverVimrs :: FilePath -> IO [ FilePath ]
 discoverVimrs = globDir1 (compile "vimr*.sock")
